@@ -1,17 +1,17 @@
 <?php
-function enter(){
+function get(){
 	return trim(fgets(STDIN));
 }
 class prankCall{
 	public function __construct($no){
 		$this->number = $no;
 	}
-	private function enter(){
+	private function get(){
 		return trim(fgets(STDIN));
 	}
 	private function correct($no){
-		$chk = substr($no,0,2);
-		if($chk=="08"){
+		$cek = substr($no,0,2);
+		if($cek=="08"){
 			$no = "62".substr($no,1);
 		}
 		return $no;
@@ -37,9 +37,9 @@ class prankCall{
 		$x = curl_exec($ch); curl_close($ch);
 		$ekse = json_decode($x,true);
 		if(empty($ekse['challengeID'])){
-			echo "[!] Failed\n";
+			echo "Gagal\n";
 		}else{
-			echo "[+] Success\n";
+			echo "Sukses\n";
 		}
 	}
 	private function loop($many,$sleep=null){
@@ -68,11 +68,11 @@ class prankCall{
 				continue;
 			}else{
 				$nn = $a+1;
-				echo "[+] Call $nn Done\r";
+				echo "[$nn] Sukses\r";
 				$a++;
 			}
-			if($sleep != null AND $sleep != 0) sleep($sleep);
-			if($a>=$many) echo "\n[+] Completed\n";
+			if($sleep!=null) sleep($sleep);
+			if($a>=$many) echo "\nCompleted!\n";
 		}
 	}
 	private function randStr($l){
@@ -83,34 +83,34 @@ class prankCall{
 		}
 		return $word;
 	}
-	public function run() {
-		while(true) {
-			echo "Loop The Call [y/n]: ";
-			$loopResult = $this->enter();
-			if($loopResult == "y" OR $loopResult == "n") {
+	public function run(){
+		while(true){
+			echo "Benar?(y/n)		";
+			$loop = $this->get();
+			if($loop=="y" OR $loop=="n"){
 				break;
-			} else {
-				echo "[!] For Yes -> y\nFor No -> n\n";
+			}else{
+				echo "Jika ya jawab y jika tidak jawab n\n";
 				continue;
 			}
 		}
-
-		if($loopResult == "y"){
-			echo "How Many Calls: ";
-			$manyCalls = $this->enter();
-			
-			echo "Sleep Between Calls [Default 0 second]: ";
-			$sleepMny = $this->enter();
-			
-			$this->loop($manyCalls, $sleepMny);
-		} else {
+		if($loop=="y"){
+			echo "Berapa banyak?			";
+			$many = $this->get();
+			$this->loop($many);
+		}else{
 			$this->ekse();
 		}
 	}
 }
-
-echo "*---------- Hassan Al-Hassani ----------*\n GitHub: https://github.com/HassanSunbah\n E-mail: Hassan@HassanDesign.rf.gd\n*---------------------------------------*\n";
-echo "Phone Number: ";
-$number = enter();
-$number = new prankCall($number);
-$number->run();
+echo "#################################\n 
+____ ____ _  _ ____    ____ ____ _    _    
+|___ |__| |_/  |___    |    |__| |    |    
+|    |  | | \_ |___    |___ |  | |___ |___ 
+#################################\n";
+				
+	
+echo "nomor target?		";
+$no = get();
+$n = new prankCall($no);
+$n->run();
